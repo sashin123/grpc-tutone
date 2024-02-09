@@ -1,0 +1,19 @@
+Trying my hands on grpc as an alternative for Rest in communicating with isolated services.
+
+Simple to get started with, but you must have an understanding of protocol buffers.. I myself am not too versed but that's why this is being built.
+
+
+
+Evidently run mvn clean install to get dependencies resolved.
+If that is resolved successfully and we get generated code then we are good to go. FYI we will need to mark the generated sources as source root to have access within our application(s).
+Granted everything looks and feels good at this point, we would then spin up our server and client applications. Client = client-service, Server = grpc-service. We can use a curl command to hit the server
+"curl http://localhost:8080/author/1", granted you did not change any of the ports the server will respond with a list of authors by their ids, this can be viewed in TempDb within the "proto" module.
+
+
+There are three modules within this project and they contain very important parts on how this works.
+-- Client service is responsible for making a call to grpc-service which then responds.. This represents the traditional client/server relationship but as we progress we will see there are more ways to "stream" data between two isolated application.
+
+The proto file in /grpc/proto/src/main/java/proto is where the magic takes place.
+
+We declare the syntax used, we designate we want separate files for auto generated code; like the "message"/class like structures. In addition we have a service structure that will generate the code for our unary stream to have the client send one request and the server responds with one response.
+
